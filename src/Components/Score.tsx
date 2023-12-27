@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 interface Params {
   score: number
@@ -7,7 +7,7 @@ interface Params {
 enum ScoreState {
   added,
   neutral,
-  decreased
+  decreased,
 }
 
 export default function Score({ score }: Params) {
@@ -18,8 +18,7 @@ export default function Score({ score }: Params) {
     if (scoreState === ScoreState.added) {
       setValue(score)
       setScoreState(ScoreState.neutral)
-    }
-    else {
+    } else {
       setValue(score + 1)
       setScoreState(ScoreState.added)
     }
@@ -29,18 +28,29 @@ export default function Score({ score }: Params) {
     if (scoreState === ScoreState.decreased) {
       setValue(score)
       setScoreState(ScoreState.neutral)
-    }
-    else {
+    } else {
       setValue(score - 1)
       setScoreState(ScoreState.decreased)
     }
   }
 
   return (
-    <div className="flex gap-4">
-      <button onClick={() => { handleIncreaseScore() }}>+</button>
+    <div className='flex gap-4'>
+      <button
+        onClick={() => {
+          handleIncreaseScore()
+        }}
+      >
+        +
+      </button>
       <p>{value}</p>
-      <button onClick={() => { handleDecreaseScore() }}>-</button>
+      <button
+        onClick={() => {
+          handleDecreaseScore()
+        }}
+      >
+        -
+      </button>
     </div>
   )
 }

@@ -21,8 +21,8 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@avatars/*": ["src/public/*"],
-      "@test/*": ["./*"],
-    },
+      "@test/*": ["./*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
