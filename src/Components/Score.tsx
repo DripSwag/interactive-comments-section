@@ -35,16 +35,22 @@ export default function Score({ score }: Params) {
   }
 
   return (
-    <div className='flex gap-4'>
+    <div className='flex gap-4 bg-LightGray px-4 py-2 rounded-lg text-GrayishBlue items-center'>
       <button
+        className={`font-bold ${
+          scoreState === ScoreState.added ? 'text-ModerateBlue' : ''
+        }`}
         onClick={() => {
           handleIncreaseScore()
         }}
       >
         +
       </button>
-      <p>{value}</p>
+      <p className='text-ModerateBlue font-medium'>{value}</p>
       <button
+        className={`font-bold ${
+          scoreState === ScoreState.decreased ? 'text-ModerateBlue' : ''
+        }`}
         onClick={() => {
           handleDecreaseScore()
         }}
