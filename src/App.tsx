@@ -4,9 +4,6 @@ import { Comment } from './interfaces/Comment.types'
 import { useCallback, useState } from 'react'
 import AddComment from './Components/AddComment'
 
-// NOTE: When setting new data for a map function, create a temp array using .slice()
-// Using slice deep copies not shallow copies
-
 function App() {
   const [comments, setComments] = useState<Array<Comment>>(data.comments)
 
@@ -33,13 +30,32 @@ function App() {
     [comments],
   )
 
+  const deleteComment = useCallback(
+    (id: number) => {
+      const index = comments.findIndex(value => {
+        return value.id === id
+      })
+      let temp = comments.slice(0)
+      temp.splice(index, 1)
+      setComments(temp)
+    },
+    [comments],
+  )
+
   return (
     <main className='font-body bg-VeryLightGray h-screen'>
       <div className='p-4 flex flex-col gap-4 h-screen'>
         <div className='overflow-y-scroll flex-col flex gap-4 flex-initial grow'>
           {comments &&
             comments.map(value => {
-              return <CommentComponent data={value} key={value.id} />
+              return (
+                <CommentComponent
+                  comment={value}
+                  currentUser={data.currentUser.username}
+                  deleteComment={deleteComment}
+                  key={value.id}
+                />
+              )
             })}
         </div>
         <AddComment data={data.currentUser} addComment={addComment} />
