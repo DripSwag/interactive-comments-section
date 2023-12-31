@@ -1,28 +1,45 @@
 import { useCallback, useState } from 'react'
-import { Comment } from '../interfaces/Comment.types'
 import Delete from './Delete'
 import Edit from './Edit'
-import Reply from './Reply'
+import Reply from './ReplyButton.tsx'
 import Score from './Score'
 import Mode from '../enums/Mode.enum.ts'
+import data from '../data.json'
+import ReplyBox from './ReplyBox.tsx'
 
 interface Params {
-  comment: Comment
-  currentUser: string
   deleteComment: Function
+  profileImg: string
+  replyingTo?: string
+  username: string
+  score: number
+  content: string
+  id: number
+  createdAt: string
+  addReply: Function
 }
 
 export default function CommentComponent({
-  comment,
-  currentUser,
   deleteComment,
+  profileImg,
+  replyingTo,
+  username,
+  score,
+  content,
+  id,
+  createdAt,
+  addReply,
 }: Params) {
   const [mode, setMode] = useState(Mode.default)
-  const [value, setValue] = useState(comment.content)
+  const [value, setValue] = useState(content)
 
   const changeMode = useCallback(
     (newMode: Mode) => {
-      setMode(newMode)
+      if (newMode === mode) {
+        setMode(Mode.default)
+      } else {
+        setMode(newMode)
+      }
     },
     [mode],
   )
@@ -31,7 +48,7 @@ export default function CommentComponent({
     if (commentUser === currentUser && mode === Mode.default) {
       return (
         <>
-          <Delete deleteComment={deleteComment} commentId={comment.id} />
+          <Delete deleteComment={deleteComment} commentId={id} />
           <Edit changeMode={changeMode} />
         </>
       )
@@ -49,37 +66,63 @@ export default function CommentComponent({
     } else {
       return (
         <>
-          <Reply />
+          <Reply changeMode={changeMode} />
         </>
       )
     }
   }
 
+  function renderReplyingTo() {
+    if (replyingTo) {
+      return (
+        <span className='text-ModerateBlue font-medium'>@{replyingTo} </span>
+      )
+    } else {
+      return <></>
+    }
+  }
+
   return (
-    <div className='flex flex-col gap-4 bg-white rounded-lg p-4 h-fit'>
-      <div className='flex items-center gap-4'>
-        <img src={comment.user.image.webp} className='aspect-square max-h-8' />
-        <h2 className='font-medium text-DarkBlue'>{comment.user.username}</h2>
-        <p className='text-GrayishBlue'>{comment.createdAt}</p>
-      </div>
-      {mode === Mode.edit ? (
-        <input
-          type='text'
-          value={value}
-          onChange={event => {
-            setValue(event.currentTarget.value)
-          }}
-          className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-GrayishBlue outline-none'
-        />
-      ) : (
-        <p className='text-GrayishBlue'>{value}</p>
-      )}
-      <div className='flex justify-between items-center max-h-6 mt-2'>
-        <Score score={comment.score} />
-        <div className='flex gap-4'>
-          {renderGhostButtons(comment.user.username, currentUser)}
+    <div className='w-full'>
+      <div
+        className={`flex flex-col gap-4 bg-white rounded-lg p-4 h-fit ${
+          replyingTo ? 'w-[90%] ml-auto' : ''
+        }`}
+      >
+        <div className='flex items-center gap-4'>
+          <img src={profileImg} className='aspect-square max-h-8' />
+          <h2 className='font-medium text-DarkBlue'>{username}</h2>
+          <p className='text-GrayishBlue'>{createdAt}</p>
+        </div>
+        {mode === Mode.edit ? (
+          <textarea
+            value={value}
+            onChange={event => {
+              setValue(event.currentTarget.value)
+            }}
+            className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-GrayishBlue outline-none'
+          />
+        ) : (
+          <p className='text-GrayishBlue'>
+            {renderReplyingTo()}
+            {value}
+          </p>
+        )}
+        <div className='flex justify-between items-center max-h-6 mt-2'>
+          <Score score={score} />
+          <div className='flex gap-4'>
+            {renderGhostButtons(username, data.currentUser.username)}
+          </div>
         </div>
       </div>
+      {mode === Mode.reply && (
+        <ReplyBox
+          username={username}
+          commentId={id}
+          addReply={addReply}
+          setMode={setMode}
+        />
+      )}
     </div>
   )
 }
