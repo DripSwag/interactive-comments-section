@@ -1,8 +1,8 @@
-import { Comment } from '../interfaces/Comment.types'
+import { TopComment } from '../interfaces/TopComment.interface'
 import CommentComponent from './Comment'
 
 interface Params {
-  value: Comment
+  value: TopComment
   deleteComment: Function
   addReply: Function
 }
@@ -15,27 +15,17 @@ export default function CommentReplyContainer({
   return (
     <div className='flex flex-col gap-4'>
       <CommentComponent
-        deleteComment={deleteComment}
-        profileImg={value.user.image.webp}
-        username={value.user.username}
-        score={value.score}
-        content={value.content}
-        createdAt={value.createdAt}
-        id={value.id}
         key={value.id}
+        comment={value}
         addReply={addReply}
+        deleteComment={deleteComment}
       />
       {value.replies &&
         value.replies.map(reply => {
           return (
             <CommentComponent
+              comment={reply}
               deleteComment={deleteComment}
-              profileImg={reply.user.image.webp}
-              username={reply.user.username}
-              score={reply.score}
-              content={reply.content}
-              createdAt={reply.createdAt}
-              id={reply.id}
               key={reply.id}
               replyingTo={reply.replyingTo}
               addReply={addReply}

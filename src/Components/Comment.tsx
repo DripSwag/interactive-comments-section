@@ -6,32 +6,23 @@ import Score from './Score'
 import Mode from '../enums/Mode.enum.ts'
 import data from '../data.json'
 import ReplyBox from './ReplyBox.tsx'
+import { Comment } from '../interfaces/Comment.interface.ts'
 
 interface Params {
-  deleteComment: Function
-  profileImg: string
-  replyingTo?: string
-  username: string
-  score: number
-  content: string
-  id: number
-  createdAt: string
+  comment: Comment
   addReply: Function
+  deleteComment: Function
+  replyingTo?: string
 }
 
 export default function CommentComponent({
   deleteComment,
-  profileImg,
+  comment,
   replyingTo,
-  username,
-  score,
-  content,
-  id,
-  createdAt,
   addReply,
 }: Params) {
   const [mode, setMode] = useState(Mode.default)
-  const [value, setValue] = useState(content)
+  const [value, setValue] = useState(comment.content)
 
   const changeMode = useCallback(
     (newMode: Mode) => {
@@ -48,7 +39,7 @@ export default function CommentComponent({
     if (commentUser === currentUser && mode === Mode.default) {
       return (
         <>
-          <Delete deleteComment={deleteComment} commentId={id} />
+          <Delete deleteComment={deleteComment} commentId={comment.id} />
           <Edit changeMode={changeMode} />
         </>
       )
@@ -90,9 +81,12 @@ export default function CommentComponent({
         }`}
       >
         <div className='flex items-center gap-4'>
-          <img src={profileImg} className='aspect-square max-h-8' />
-          <h2 className='font-medium text-DarkBlue'>{username}</h2>
-          <p className='text-GrayishBlue'>{createdAt}</p>
+          <img
+            src={comment.user.image.webp}
+            className='aspect-square max-h-8'
+          />
+          <h2 className='font-medium text-DarkBlue'>{comment.user.username}</h2>
+          <p className='text-GrayishBlue'>{comment.createdAt}</p>
         </div>
         {mode === Mode.edit ? (
           <textarea
@@ -109,16 +103,20 @@ export default function CommentComponent({
           </p>
         )}
         <div className='flex justify-between items-center max-h-6 mt-2'>
-          <Score score={score} />
+          <Score score={comment.score} />
           <div className='flex gap-4'>
-            {renderGhostButtons(username, data.currentUser.username)}
+            {renderGhostButtons(
+              comment.user.username,
+              data.currentUser.username,
+            )}
           </div>
         </div>
       </div>
       {mode === Mode.reply && (
         <ReplyBox
-          username={username}
-          commentId={id}
+          replyingTo={comment.replyingTo}
+          username={comment.user.username}
+          commentId={comment.id}
           addReply={addReply}
           setMode={setMode}
         />

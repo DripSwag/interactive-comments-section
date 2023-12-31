@@ -1,9 +1,8 @@
-export interface Reply {
+export interface Comment {
   id: number
   content: string
   createdAt: string
   score: number
-  replyingTo: string
   user: {
     image: {
       png: string

@@ -1,17 +1,17 @@
 import data from './data.json'
-import { Comment } from './interfaces/Comment.types'
+import { TopComment } from './interfaces/TopComment.interface'
 import { useCallback, useState } from 'react'
 import AddComment from './Components/AddComment'
 import CommentReplyContainer from './Components/CommentReplyContainer'
-import { Reply } from './interfaces/Reply.types'
+import { Reply } from './interfaces/Reply.interface'
 
 function App() {
-  const [comments, setComments] = useState<Array<Comment>>(data.comments)
+  const [comments, setComments] = useState<Array<TopComment>>(data.comments)
 
   const addComment = useCallback(
     (comment: string) => {
       let temp = comments.splice(0)
-      const newComment: Comment = {
+      const newComment: TopComment = {
         id: Date.now(),
         content: comment,
         createdAt: 'Now',
@@ -98,7 +98,7 @@ function App() {
 
   return (
     <main className='font-body bg-VeryLightGray h-screen'>
-      <div className='p-4 flex flex-col gap-4 h-screen'>
+      <div className='p-4 flex flex-col gap-4 h-screen max-w-screen-lg w-full lg:absolute lg:left-1/2 lg:-translate-x-1/2'>
         <div className='overflow-y-scroll flex-col flex gap-4 flex-initial grow'>
           {comments &&
             comments.map(value => {

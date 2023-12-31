@@ -7,10 +7,12 @@ interface Params {
   addReply: Function
   commentId: number
   setMode: Function
+  replyingTo: string
 }
 
 export default function ReplyBox({
   username,
+  replyingTo,
   addReply,
   commentId,
   setMode,
@@ -25,7 +27,7 @@ export default function ReplyBox({
   return (
     <div
       className={`flex p-2 flex-wrap justify-between gap-2 bg-white rounded-lg my-2 ${
-        username ? 'w-[90%] ml-auto' : ''
+        replyingTo ? 'w-[90%] ml-auto' : ''
       }`}
     >
       <img
