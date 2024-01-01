@@ -11,10 +11,26 @@
     line-height: 1.25rem;
   }
 
+  .BlueGhostButton:hover {
+    color: hsl(239, 57%, 85%);
+  }
+
+  .BlueGhostButton:hover > svg {
+    fill: hsl(239, 57%, 85%);
+  }
+
   .RedGhostButton {
     color: hsl(358, 79%, 66%);
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .RedGhostButton:hover {
+    color: hsl(357, 100%, 86%);
+  }
+
+  .RedGhostButton:hover > svg {
+    fill: hsl(357, 100%, 86%);
   }
 }

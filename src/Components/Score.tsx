@@ -35,9 +35,9 @@ export default function Score({ score }: Params) {
   }
 
   return (
-    <div className='flex gap-4 bg-LightGray px-4 py-2 rounded-lg text-GrayishBlue items-center'>
+    <div className='flex gap-4 bg-LightGray px-4 py-2 rounded-lg text-GrayishBlue max-h-32 h-fit items-center w-max row-span-2 order-3 lg:order-none lg:flex-col'>
       <button
-        className={`font-bold ${
+        className={`font-bold hover:text-ModerateBlue ${
           scoreState === ScoreState.added ? 'text-ModerateBlue' : ''
         }`}
         onClick={() => {
@@ -48,7 +48,7 @@ export default function Score({ score }: Params) {
       </button>
       <p className='text-ModerateBlue font-medium'>{value}</p>
       <button
-        className={`font-bold ${
+        className={`font-bold hover:text-ModerateBlue ${
           scoreState === ScoreState.decreased ? 'text-ModerateBlue' : ''
         }`}
         onClick={() => {

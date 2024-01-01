@@ -13,7 +13,7 @@ export default function CommentReplyContainer({
   addReply,
 }: Params) {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 w-full'>
       <CommentComponent
         key={value.id}
         comment={value}

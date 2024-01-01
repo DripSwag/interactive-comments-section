@@ -32,7 +32,7 @@ export default function AddComment({ data, addComment }: Params) {
         <img src={data.image.webp} />
       </div>
       <button
-        className='bg-ModerateBlue text-white px-8 py-3 rounded-lg h-min order-3 ml-auto lg:ml-0'
+        className='bg-ModerateBlue text-white px-8 py-3 rounded-lg h-min order-3 ml-auto font-medium lg:ml-0 hover:opacity-50'
         type='submit'
       >
         SEND

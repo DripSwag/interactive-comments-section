@@ -97,8 +97,8 @@ function App() {
   )
 
   return (
-    <main className='font-body bg-VeryLightGray h-screen'>
-      <div className='p-4 flex flex-col gap-4 h-screen max-w-screen-lg w-full lg:absolute lg:left-1/2 lg:-translate-x-1/2'>
+    <main className='font-body bg-VeryLightGray h-screen w-screen flex justify-center'>
+      <div className='p-4 flex flex-col gap-4 h-screen max-w-screen-lg w-full'>
         <div className='overflow-y-scroll flex-col flex gap-4 flex-initial grow'>
           {comments &&
             comments.map(value => {

@@ -38,10 +38,10 @@ export default function CommentComponent({
   function renderGhostButtons(commentUser: string, currentUser: string) {
     if (commentUser === currentUser && mode === Mode.default) {
       return (
-        <>
+        <div className='flex gap-4 order-4 col-start-3 col-end-4 w-max row-start-1 row-end-2 justify-self-end'>
           <Delete deleteComment={deleteComment} commentId={comment.id} />
           <Edit changeMode={changeMode} />
-        </>
+        </div>
       )
     } else if (mode === Mode.edit) {
       return (
@@ -49,7 +49,7 @@ export default function CommentComponent({
           onClick={() => {
             setMode(Mode.default)
           }}
-          className='bg-ModerateBlue px-4 py-2 rounded-lg text-white font-medium'
+          className='bg-ModerateBlue px-8 py-3 rounded-lg text-white font-medium row-start-3 row-end-4 col-start-3 col-end-4 order-4 max-w-fit justify-self-end hover:opacity-50'
         >
           UPDATE
         </button>
@@ -74,13 +74,13 @@ export default function CommentComponent({
   }
 
   return (
-    <div className='w-full'>
+    <>
       <div
-        className={`flex flex-col gap-4 bg-white rounded-lg p-4 h-fit ${
-          replyingTo ? 'w-[90%] ml-auto' : ''
+        className={`flex flex-wrap gap-4 bg-white rounded-lg p-4 h-fit justify-between lg:grid lg:grid-cols-[fit-content(100px)_1fr_1fr] ${
+          replyingTo ? 'w-[90%] ml-auto' : 'w-full'
         }`}
       >
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4 w-max order-2 col-start-2 col-end-3'>
           <img
             src={comment.user.image.webp}
             className='aspect-square max-h-8'
@@ -94,33 +94,26 @@ export default function CommentComponent({
             onChange={event => {
               setValue(event.currentTarget.value)
             }}
-            className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-GrayishBlue outline-none'
+            className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-DarkBlue outline-none order-3 col-span-2'
           />
         ) : (
-          <p className='text-GrayishBlue'>
+          <p className='text-GrayishBlue order-3 col-start-2 col-end-4 col-span-2 break-words w-full'>
             {renderReplyingTo()}
             {value}
           </p>
         )}
-        <div className='flex justify-between items-center max-h-6 mt-2'>
-          <Score score={comment.score} />
-          <div className='flex gap-4'>
-            {renderGhostButtons(
-              comment.user.username,
-              data.currentUser.username,
-            )}
-          </div>
-        </div>
+        <Score score={comment.score} />
+        {renderGhostButtons(comment.user.username, data.currentUser.username)}
       </div>
       {mode === Mode.reply && (
         <ReplyBox
-          replyingTo={comment.replyingTo}
+          replyingTo={replyingTo}
           username={comment.user.username}
           commentId={comment.id}
           addReply={addReply}
           setMode={setMode}
         />
       )}
-    </div>
+    </>
   )
 }

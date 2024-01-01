@@ -7,7 +7,7 @@ interface Params {
   addReply: Function
   commentId: number
   setMode: Function
-  replyingTo: string
+  replyingTo?: string
 }
 
 export default function ReplyBox({
@@ -26,23 +26,23 @@ export default function ReplyBox({
 
   return (
     <div
-      className={`flex p-2 flex-wrap justify-between gap-2 bg-white rounded-lg my-2 ${
+      className={`flex p-4 flex-wrap justify-between gap-4 bg-white rounded-lg my-2 lg:justify-normal  ${
         replyingTo ? 'w-[90%] ml-auto' : ''
       }`}
     >
       <img
         src={data.currentUser.image.webp}
-        className='aspect-square h-8 order-2'
+        className='aspect-square h-8 order-2 lg:order-1'
       />
       <textarea
         value={value}
         onChange={event => {
           setValue(event.currentTarget.value)
         }}
-        className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-GrayishBlue outline-none order-1 w-full'
+        className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-DarkBlue outline-none order-1 w-full lg:w-auto grow lg:order-2'
       />
       <button
-        className='bg-ModerateBlue text-white px-8 py-3 rounded-lg h-min order-3'
+        className='bg-ModerateBlue text-white px-8 py-3 rounded-lg h-min order-3 font-medium hover:opacity-50'
         onClick={handleClick}
       >
         REPLY
