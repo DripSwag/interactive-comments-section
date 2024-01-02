@@ -11,7 +11,10 @@ export default function AddComment({ data, addComment }: Params) {
 
   function handleClick(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    addComment(value)
+    if (value.length > 0) {
+      addComment(value)
+      setValue('')
+    }
   }
 
   return (
@@ -24,6 +27,7 @@ export default function AddComment({ data, addComment }: Params) {
       <textarea
         className='border-2 border-LightGray rounded-md p-2 w-full order-1 resize-none lg:order-2 lg:grow lg:w-auto lg:h-full'
         placeholder='Add a comment...'
+        value={value}
         onChange={event => {
           setValue(event.currentTarget.value)
         }}

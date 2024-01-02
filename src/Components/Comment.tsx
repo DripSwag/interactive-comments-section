@@ -95,7 +95,7 @@ export default function CommentComponent({
             onChange={event => {
               setValue(event.currentTarget.value)
             }}
-            className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-DarkBlue outline-none order-3 col-span-2'
+            className='p-4 border-[1px] border-LightGrayishBlue rounded-lg text-DarkBlue outline-none order-3 col-span-2 grow w-full'
           />
         ) : (
           <p className='text-GrayishBlue order-3 col-start-2 col-end-4 col-span-2 break-words w-full'>
