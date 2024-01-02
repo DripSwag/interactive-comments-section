@@ -29,7 +29,7 @@ export default function AddComment({ data, addComment }: Params) {
         }}
       />
       <div className='aspect-square h-8 order-2 lg:order-1'>
-        <img src={data.image.webp} />
+        <img src={data.image.webp} alt='Profile Icon' />
       </div>
       <button
         className='bg-ModerateBlue text-white px-8 py-3 rounded-lg h-min order-3 ml-auto font-medium lg:ml-0 hover:opacity-50'

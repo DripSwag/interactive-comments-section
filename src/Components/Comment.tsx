@@ -83,6 +83,7 @@ export default function CommentComponent({
         <div className='flex items-center gap-4 w-max order-2 col-start-2 col-end-3'>
           <img
             src={comment.user.image.webp}
+            alt='Profile Icon'
             className='aspect-square max-h-8'
           />
           <h2 className='font-medium text-DarkBlue'>{comment.user.username}</h2>
